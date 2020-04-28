@@ -166,6 +166,11 @@ label {
   .btn-agregar {
     font-size: 1.125rem;
   }
+  .alertLogin {
+    margin: 0 auto;
+    width: 600px;
+    text-align: center;
+  }
 }
 
 /* LOADING */

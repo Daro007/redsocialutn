@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { FaReact } from "react-icons/fa";
 import firebase from "../Config/firebase";
+import Alert from "react-bootstrap/Alert";
+import { Redirect } from "react-router-dom";
 
 function Registro() {
   const [form, setForm] = useState({
@@ -12,13 +14,22 @@ function Registro() {
     password: "",
     password2: "",
   });
+  const [show, setShow] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   function handleSubmit(e) {
     const formulario = document.querySelector(".needs-validation");
 
     if (formulario.checkValidity() === true) {
       e.preventDefault();
-      console.log(form);
+      const auth = firebase.auth();
+      const promise = auth.createUserWithEmailAndPassword(
+        form.email,
+        form.password
+      );
+      promise.then((e) => setIsRegistered(true));
+      promise.catch((e) => setShow(true));
+      // console.log(form);
       firebase.database().ref("usuarios/").push({
         nombre: form.nombre,
         apellido: form.apellido,
@@ -42,11 +53,33 @@ function Registro() {
     });
   }
 
+  function AlertDismissibleExample() {
+    if (show) {
+      return (
+        <Alert
+          variant="danger"
+          className="alertLogin"
+          onClose={() => setShow(false)}
+          dismissible
+        >
+          <Alert.Heading>Error:</Alert.Heading>
+          <p>
+            Ha habido un inconveniente y no se ha podido registrar. Por favor,
+            para más información contacte con nosotros a nuestro e-mail de
+            soporte.
+          </p>
+        </Alert>
+      );
+    }
+    return null;
+  }
+
   return (
     <div>
       <h2 className="text-center bg-danger text-white py-2">
         Curso de Desarrollo en React JS <FaReact className="app-logo" />{" "}
       </h2>
+      <AlertDismissibleExample />
 
       <Form
         id="formulario"
@@ -177,6 +210,7 @@ function Registro() {
           </div>
         </div>
       </Form>
+      {isRegistered ? <Redirect to="/" /> : null}
     </div>
   );
 }
