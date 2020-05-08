@@ -1,4 +1,5 @@
 import React from "react";
+import UTNimg from "../Images/UTN-eLearning-fondo.png";
 
 function Header() {
   return (
@@ -7,7 +8,7 @@ function Header() {
         <img
           id="logo"
           className="img-responsive"
-          src="//www.adistancia.frba.utn.edu.ar/pluginfile.php/1/theme_impression/logo/1575644698/eLearning-fondo-transparente.png"
+          src={UTNimg}
           alt="Imagen del Campus Virtual UTN FRBA"
         />
       </header>

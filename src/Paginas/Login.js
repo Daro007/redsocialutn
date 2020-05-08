@@ -8,8 +8,9 @@ import Alert from "react-bootstrap/Alert";
 import { Redirect } from "react-router-dom";
 
 function Login() {
-  const [isLogIn, setIsLogIn] = useState(false);
+  // const [isLogIn, setIsLogIn] = useState(false);
   const [show, setShow] = useState(false);
+
   function AlertDismissibleExample() {
     if (show) {
       return (
@@ -25,6 +26,12 @@ function Login() {
       );
     }
     return null;
+  }
+
+  function redirect() {
+    localStorage.setItem("usuarioLogueado", true);
+    window.location.reload(false);
+    // setIsLogIn(true);
   }
 
   return (
@@ -49,7 +56,7 @@ function Login() {
           values.email,
           values.password
         );
-        promise.then((e) => setIsLogIn(true));
+        promise.then((e) => redirect());
         promise.catch((e) => setShow(true));
       }}
       render={({ submitForm, isSubmitting, values }) => (
@@ -90,7 +97,7 @@ function Login() {
               </Row>
             </Container>
           </Form>
-          {isLogIn ? <Redirect to="/" /> : null}
+          {localStorage.getItem("usuarioLogueado") ? <Redirect to="/" /> : null}
         </div>
       )}
     />

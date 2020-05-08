@@ -8,9 +8,22 @@ import { Switch, Route } from "react-router-dom";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import BarraNav from "./Componentes/Nav";
+import { Redirect } from "react-router-dom";
+// import firebase from "./Config/firebase";
 // import { render } from "@testing-library/react";
 
 function App() {
+  // const [isLogIn, setIsLogIn] = useState(false);
+
+  // firebase.auth().onAuthStateChanged((firebaseUser) => {
+  //   if (firebaseUser) {
+  //     setIsLogIn(true);
+  //     console.log(isLogIn);
+  //   } else {
+  //     setIsLogIn(false);
+  //   }
+  // });
+
   return (
     <div className="App">
       <div id="content-wrap">
@@ -24,14 +37,19 @@ function App() {
             <Login />
           </Route>
           <Route exact path="/">
-            <Homepage />
+            {localStorage.getItem("usuarioLogueado") ? (
+              <Homepage />
+            ) : (
+              <Redirect exact to="/Login" />
+            )}
           </Route>
-          <Route exact path="/usuarios/:id">
+          <Route exact path="/usuarios/:idu">
             <PerfilDeUsuario />
           </Route>
         </Switch>
       </div>
       <Footer />
+      {console.log(localStorage.getItem("usuarioLogueado"))}
     </div>
   );
 }

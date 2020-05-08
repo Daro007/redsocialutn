@@ -16,6 +16,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "reactstrap-formik": "^1.0.9",
+    "serve-index": "^1.9.1",
     "yup": "^0.28.4"
   },
   "scripts": {

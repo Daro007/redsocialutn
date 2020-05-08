@@ -1,6 +1,6 @@
 import React from "react";
 import { MdPerson } from "react-icons/md";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import firebase from "../Config/firebase";
 
 function PerfilesFirebase(props) {
@@ -22,7 +22,9 @@ function PerfilesFirebase(props) {
         </p>
 
         <button className="btn-verPerfil">
-          <MdPerson /> Ver perfil{" "}
+          <Link className="linkUsuario" to={`/usuarios/${props.idu}`}>
+            <MdPerson /> Ver perfil{" "}
+          </Link>
         </button>
       </div>
     </div>
